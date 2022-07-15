@@ -229,7 +229,17 @@ module.exports = {
             ('Yemen'),
             ('Zambia'),
             ('Zimbabwe');
-        `).then(() => {
+            
+            INSERT INTO cities (name, rating, country_id)
+            VALUES ('Kabul', '1', '1');
+            
+            INSERT INTO cities (name, rating, country_id)
+            VALUES ('Baghdad', '1', '1');
+           
+            INSERT INTO cities (name, rating, country_id)
+            VALUES ('Kandahar', '1', '1');
+        `)
+        .then(() => {
             console.log('DB seeded!')
             res.sendStatus(200)
         }).catch(err => console.log('error seeding DB', err))
@@ -260,7 +270,8 @@ module.exports = {
         SELECT cities.city_id, cities.name AS city, cities.rating, countries.country_id, countries.name AS country
         FROM cities
         JOIN countries
-        ON cities.country_id = countries.country_id;
+        ON cities.country_id = countries.country_id
+        ORDER BY rating DESC;
         `)
         .then(dbRes => 
             res.status(200).send(dbRes[0]))
